@@ -1,0 +1,34 @@
+Arguments: 
+  /home/qais/.nvm/versions/node/v17.8.0/bin/node /home/qais/.nvm/versions/node/v17.8.0/bin/yarn add express
+
+PATH: 
+  /home/qais/.nvm/versions/node/v17.8.0/bin:/home/qais/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+
+Yarn version: 
+  1.22.18
+
+Node version: 
+  17.8.0
+
+Platform: 
+  linux x64
+
+Trace: 
+  Error: getaddrinfo ENOTFOUND registry.yarnpkg.com
+      at GetAddrInfoReqWrap.onlookup [as oncomplete] (node:dns:72:26)
+
+npm manifest: 
+  {
+    "name": "funk-api",
+    "version": "1.0.0",
+    "main": "index.js",
+    "repository": "git@github.com:Arslan-Soomro/funk-api.git",
+    "author": "Qais Aziz <azizqais96@gmail.com>",
+    "license": "MIT"
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
