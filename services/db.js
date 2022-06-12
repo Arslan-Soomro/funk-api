@@ -1,7 +1,6 @@
 // Connects to Database and exports the database connection
 // Code To create schemas must also be added in this folder with corresponding schema names.
-
-import mysql from "mysql2";
+const mysql = require('mysql2');
 
 //Create a pooling connection
 const pool = mysql.createPool({
@@ -11,4 +10,4 @@ const pool = mysql.createPool({
     database: 'funk'
 });
 
-export default pool.promise();
+module.exports = pool.promise();
