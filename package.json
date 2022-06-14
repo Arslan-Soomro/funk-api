@@ -4,7 +4,9 @@
   "description": "## API DOCS",
   "main": "index.js",
   "scripts": {
-    "initDatabase": "node utils/initializeDatabase.js"
+    "start" : "node index.js",
+    "initDatabase": "node utils/initializeDatabase.js",
+    "dev" : "nodemon index.js"
   },
   "repository": {
     "type": "git",
