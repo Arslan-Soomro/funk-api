@@ -29,7 +29,7 @@ const b_signup = async (u_name, f_name, l_name, email, pass) => {
 
 const buyerUpdate = async (obj, u_name) => {
 
-    if(!(await searchUtil("username", u_name))){
+    if(await searchUtil("username", u_name)){
     const validAttrs = ["first_name", "last_name", "email", "password"];
     const tempBuyer = {};
     validAttrs.forEach((item) => {
@@ -42,7 +42,7 @@ const buyerUpdate = async (obj, u_name) => {
     var varArr = Object.keys(obj);
     var valArr = Object.values(obj);
 
-    const updateQuery = `UPDATE buyer SET ${varArr.join(" = ?, ")} = ? WHERE user_name = '${u_name}' `;
+    const updateQuery = `UPDATE buyer SET ${varArr.join(" = ?, ")} = ? WHERE username = '${u_name}' `;
     console.log(updateQuery);
     const queryResult = await db.execute(updateQuery, valArr);
 
@@ -55,6 +55,5 @@ else console.log("Username does not exist!");
 
 module.exports = {
     b_signup,
-    buyerUpdate,
-    searchUtil
+    buyerUpdate
 }
