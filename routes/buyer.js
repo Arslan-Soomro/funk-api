@@ -1,6 +1,6 @@
 const express = require('express');
 const Joi = require('joi');
-const{b_signup, buyerUpdate} = require('../utils/db_utils');
+const{b_signup, buyerUpdate, deleteBuyer} = require('../utils/db_utils');
 const {schema} = require('joi/lib/types/object');
 const router = express();
 function checkForUsername(id){
@@ -39,6 +39,12 @@ router.put('/:id', async (req, res) =>{
     const uName = req.params.id.toString();
     
     const result = await buyerUpdate(req.body, uName);
+    res.status(200).json(result);
+})
+
+router.delete('/:id', async(req, res) => {
+    const uName = req.params.id.toString();
+    const result = await deleteBuyer(uName);
     res.status(200).json(result);
 })
 

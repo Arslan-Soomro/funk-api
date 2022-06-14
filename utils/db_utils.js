@@ -51,9 +51,19 @@ const buyerUpdate = async (obj, u_name) => {
 else console.log("Username does not exist!");
 }
 
+const deleteBuyer = async(username) => {
+    if(await searchUtil("username", username)){
+        const delQuery = `DELETE FROM buyer WHERE username = '${username}'`;
+        const queryResult = await db.execute(delQuery);
+    }
+
+    else console.log("Username does not exist!");
+}
+
 
 
 module.exports = {
     b_signup,
-    buyerUpdate
+    buyerUpdate,
+    deleteBuyer
 }
