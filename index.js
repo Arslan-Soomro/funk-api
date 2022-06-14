@@ -2,7 +2,7 @@
 const express = require('express');
 const app = express();
 
-const ProductRoute = require('./Routes/ProductRoute');
+const ProductRoute = require('./routes/ProductRoute');
 const BuyerRoute = require('./routes/BuyerRoute');
 
 
