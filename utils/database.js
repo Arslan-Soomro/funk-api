@@ -3,7 +3,7 @@ const pool = mysql.createPool({
     host: '127.0.0.1',
     user: 'root',
     password: 'root1234',
-    database: 'funkarana'
+    database: 'funk'
 
 });
 

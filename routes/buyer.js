@@ -19,7 +19,7 @@ router.get('/', async (req, res) => {
 }
 
 router.post('/', async (req, res) =>{
-    const error = validateSignup(req.body);
+    const {error} = validateSignup(req.body);
     if(error){return res.status(400).send(error.details[0].message)}
     
     const signupData = {
@@ -29,14 +29,14 @@ router.post('/', async (req, res) =>{
         email: req.body.email.trim(),
         pass: req.body.pass.trim()
     }
-  //  if(checkForUsername(req.body.u_name)){
+  
     const result = await b_signup(signupData.u_name,signupData.f_name,signupData.l_name,signupData.email,signupData.pass)
     res.status(200).json(result)
-//}
+
 })
 
 router.put('/:id', async (req, res) =>{
-    //const buyer = buyer.find
+    
     const uName = req.params.id.toString();
     
     const result = await buyerUpdate(req.body, uName);
