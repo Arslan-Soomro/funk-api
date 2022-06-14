@@ -1,11 +1,16 @@
 
 const express = require('express');
 const app = express();
+
+const ProductRoute = require('./Routes/ProductRoute');
 const BuyerRoute = require('./routes/BuyerRoute');
+
+
+const PORT = process.env.PORT || 5000;
 
 app.use(express.json());
 app.use('/buyer', BuyerRoute);
-const PORT = process.env.PORT || 5000;
+app.use('/products', ProductRoute);
 
 
 app.get((req, res) => {
