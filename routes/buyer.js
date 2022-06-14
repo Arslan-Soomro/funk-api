@@ -1,8 +1,22 @@
 const express = require('express');
 const Joi = require('joi');
-const{b_signup, buyerUpdate} = require('../utils/db_utils');
+const{b_signup, buyerUpdate, searchUtil} = require('../utils/db_utils');
 const {schema} = require('joi/lib/types/object');
 const router = express();
+function checkForUsername(id){
+router.get('/', async (req, res) => {
+    const [result] = await searchUtil(id);
+    if([result].includes(id)){
+        res.status(200);
+        return false
+    }
+
+    else{
+        return true
+    }
+
+})
+}
 
 router.post('/', async (req, res) =>{
     const error = validateSignup(req.body);
@@ -15,21 +29,17 @@ router.post('/', async (req, res) =>{
         email: req.body.email.trim(),
         pass: req.body.pass.trim()
     }
+  //  if(checkForUsername(req.body.u_name)){
     const result = await b_signup(signupData.u_name,signupData.f_name,signupData.l_name,signupData.email,signupData.pass)
     res.status(200).json(result)
+//}
 })
 
-router.put('/:u_name', async (req, res) =>{
+router.put('/:id', async (req, res) =>{
     //const buyer = buyer.find
-
-    const tempBuyer = {
-        fName:req.body.f_name?.trim(),
-        lName:req.body.l_name?.trim(),
-        mail: req.body.email?.trim(),
-        passw: req.body.pass?.trim()
-    }
-
-    const result = await buyerUpdate(tempBuyer.fName,tempBuyer.lName,tempBuyer.mail,tempBuyer.passw);
+    const uName = req.params.id.toString();
+    
+    const result = await buyerUpdate(req.body, uName);
     res.status(200).json(result);
 })
 
