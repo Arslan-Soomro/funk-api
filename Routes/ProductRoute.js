@@ -19,6 +19,7 @@ router.get('/:id', async (req, res) => {
     }
 });
 
+
 router.post('/', async (req, res) => {
     try{
         console.log("Add product details.");
@@ -55,6 +56,7 @@ router.post('/', async (req, res) => {
     }
 });
 
+
 router.put('/:id', async (req, res) => {
   try{
         const prod = {
@@ -81,7 +83,8 @@ router.put('/:id', async (req, res) => {
         })
     }
 });
- 
+
+
 router.delete('/:id',async (req, res)=>{
     try
     {
@@ -97,9 +100,5 @@ router.delete('/:id',async (req, res)=>{
         })
     }
 });
-
-
-
-
 
 module.exports = router;
