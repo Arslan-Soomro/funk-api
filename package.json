@@ -1,6 +1,7 @@
 {
   "name": "funk-api",
   "version": "1.0.0",
+<<<<<<< HEAD
   "main": "index.js",
   "repository": "git@github.com:Arslan-Soomro/funk-api.git",
   "author": "Qais Aziz <azizqais96@gmail.com>",
@@ -12,6 +13,31 @@
     "joi": "^17.6.0",
     "jsonwebtoken": "^8.5.1",
     "mysql2": "^2.3.3",
+=======
+  "description": "## API DOCS",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "initDatabase": "node utils/initializeDatabase.js",
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Arslan-Soomro/funk-api.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Arslan-Soomro/funk-api/issues"
+  },
+  "homepage": "https://github.com/Arslan-Soomro/funk-api#readme",
+  "dependencies": {
+    "express": "^4.18.1",
+    "express-validator": "^6.14.1",
+    "mysql2": "^2.3.3"
+  },
+  "devDependencies": {
+>>>>>>> 2beb8338fd6c65f9c390bcb729a3ff11dba4ae20
     "nodemon": "^2.0.16"
   }
 }
