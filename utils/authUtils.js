@@ -2,6 +2,7 @@
 
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const { JWT_SECRET } = require("./globals");
 
 const hashEncrypt = async (strToEncrypt) => {
   const saltRounds = 10;
@@ -10,11 +11,21 @@ const hashEncrypt = async (strToEncrypt) => {
 };
 
 const createJWT = (jwtPayload) => {
-  const jwtSecret = "helloworld";
-  return jwt.sign(jwtPayload, jwtSecret, { expiresIn: "24h" });
+  return jwt.sign(jwtPayload, JWT_SECRET, { expiresIn: "24h" });
 };
+
+const verifyToken = (token) => {
+    try {
+        const data = jwt.verify(token, JWT_SECRET);
+        return data;
+    }catch (err) {
+        console.log("Error@TokenAuthentication: " + err.message);
+    }
+    return ;
+}
 
 module.exports = {
   hashEncrypt,
-  createJWT
+  createJWT,
+  verifyToken
 };

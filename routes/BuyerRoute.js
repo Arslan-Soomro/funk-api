@@ -58,6 +58,7 @@ router.post(
       const { username, password } = req.body;
       
       const userData = await getBuyerByUsername(username);
+
       if (!userData) {
         res.status(404).json({ error: "Username is not registered !" });
         return;
@@ -77,5 +78,10 @@ router.post(
     }
   }
 );
+
+router.get('/signin', (req, res) => {
+    
+    res.send("Signin");
+});
 
 module.exports = router;
