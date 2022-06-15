@@ -56,7 +56,7 @@ router.post(
   async (req, res) => {
     try {
       const { username, password } = req.body;
-      
+
       const userData = await getBuyerByUsername(username);
 
       if (!userData) {
@@ -74,14 +74,33 @@ router.post(
       return;
     } catch (err) {
       console.log("Error@Signin: " + err.message);
-      res.status(500).json({error: "Error occurred at server"})
+      res.status(500).json({ error: "Error occurred at server" });
     }
   }
 );
 
-router.get('/signin', (req, res) => {
-    
-    res.send("Signin");
+router.get("/signin", async (req, res) => {
+  try {
+    if (req.AT_DATA) {
+      const { id: username } = req.AT_DATA;
+
+      const [result] = await db.execute(
+        "SELECT username, first_name, last_name, email FROM buyer WHERE username = ?",
+        [username]
+      );
+
+      if (result?.length > 0) {
+        res.status(200).json(result[0]);
+      } else {
+        res.status(404).json({ error: "Buyer doesn't exist" });
+      }
+    }
+  } catch (err) {
+    console.log("Error@BuyerSigninGET : " + err.message);
+    res.status(500).json({
+      error: "Error occurred At server",
+    });
+  }
 });
 
 module.exports = router;
