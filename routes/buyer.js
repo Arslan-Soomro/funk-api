@@ -1,6 +1,6 @@
 const express = require('express');
 const Joi = require('joi');
-const{b_signup, buyerUpdate, deleteBuyer} = require('../utils/db_utils');
+const{b_signup, buyerUpdate, deleteBuyer, allBuyers} = require('../utils/db_utils');
 const {schema} = require('joi/lib/types/object');
 const router = express();
 function checkForUsername(id){
@@ -18,9 +18,12 @@ router.get('/', async (req, res) => {
 })
 }
 
-router.post('/', async (req, res) =>{
+router.get('/', async (req, res) =>{
+    const result = await allBuyers();
+    res.status(200).json(result);
+})
 
-    
+router.post('/', async (req, res) =>{
     const signupData = {
         u_name: req.body.username.trim(),
         f_name: req.body.first_name.trim().toLowerCase(),
