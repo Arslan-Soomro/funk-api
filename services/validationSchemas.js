@@ -60,6 +60,12 @@ const BuyerSignupValidationSchema = () => {
           "Password must be longer than 3 characters and smaller than 30 characters",
       },
     },
+    image: {
+      in: ["body"],
+      erroMessage: "Profile Image is required",
+      trim: true,
+      isString: true,
+    }
   };
 };
 

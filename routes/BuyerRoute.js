@@ -20,7 +20,7 @@ router.post(
   async (req, res) => {
     try {
       //Extract required fields form req.body
-      let { username, email, first_name, last_name, password } = req.body;
+      let { username, email, first_name, last_name, password, image } = req.body;
 
       //Encrypt Password
       password = await hashEncrypt(password);
@@ -28,8 +28,8 @@ router.post(
       //query for adding a buyer
       const query = `
         INSERT INTO buyer
-        (username, email, first_name, last_name, password)
-        VALUES (?, ?, ?, ?, ?)
+        (username, email, first_name, last_name, password, image)
+        VALUES (?, ?, ?, ?, ?, ?)
     `;
 
       //add the buyer
@@ -39,9 +39,10 @@ router.post(
         first_name,
         last_name,
         password,
+        image
       ]);
 
-      res.json("Buyer Signedup Successfully !");
+      res.json({message: "Buyer Signedup Successfully !"});
     } catch (err) {
       console.log("Error@BuyerSignup: " + err.message);
       res.status(500).json({ error: "Error occured at server" });
@@ -82,18 +83,14 @@ router.post(
 router.get("/signin", async (req, res) => {
   try {
     if (req.AT_DATA) {
-      const { id: username } = req.AT_DATA;
-
-      const [result] = await db.execute(
-        "SELECT username, first_name, last_name, email FROM buyer WHERE username = ?",
-        [username]
-      );
-
-      if (result?.length > 0) {
-        res.status(200).json(result[0]);
-      } else {
-        res.status(404).json({ error: "Buyer doesn't exist" });
-      }
+        const { username, email, first_name, last_name, image } = req.AT_DATA.data;
+        res.status(200).json({
+            username,
+            email,
+            first_name,
+            last_name,
+            image
+        })
     }
   } catch (err) {
     console.log("Error@BuyerSigninGET : " + err.message);

@@ -1,4 +1,4 @@
-const AdminSchema = `Admin(
+const AdminSchema = `admin(
     username VARCHAR(30) PRIMARY KEY UNIQUE NOT NULL,
     password VARCHAR(255) NOT NULL 
 )`;

@@ -21,7 +21,7 @@ app.use(async (req, res, next) => {
             const [adminRow] = await db.execute("SELECT * FROM admin WHERE username = ?", [id]);
 
             //If it is an admin
-            if(admin?.length > 0){
+            if(adminRow?.length > 0){
                 req.AT_DATA = {
                     data: adminRow[0],
                     type: "admin"
@@ -32,7 +32,7 @@ app.use(async (req, res, next) => {
 
             const [sellerRow] = await db.execute("SELECT * FROM seller WHERE seller_id = ? || username = ?", [id, id]);
 
-            if(seller?.length > 0){
+            if(sellerRow?.length > 0){
                 req.AT_DATA = {
                     data: sellerRow[0],
                     type: "seller"
@@ -43,7 +43,7 @@ app.use(async (req, res, next) => {
 
             const [buyerRow] = await db.execute("SELECT * FROM buyer WHERE username = ?", [id]);
 
-            if(buyer?.length > 0){
+            if(buyerRow?.length > 0){
                 req.AT_DATA = {
                     data: buyerRow[0],
                     type: "buyer"
@@ -53,7 +53,7 @@ app.use(async (req, res, next) => {
             }
         }
 
-        return res.json({error: "Invalid Token"});
+        return res.status(400).json({error: "Invalid Token"});
     }
 
     next();
