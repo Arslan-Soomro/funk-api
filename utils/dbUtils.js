@@ -19,4 +19,14 @@ const createTable = async (tableSchema, drop, tableName) => {
 
 };
 
-module.exports = { createTable }
+const getBuyerByUsername = async (username) => {
+    if(!username) return ;
+    
+    const [result] = await db.execute("SELECT * FROM buyer WHERE username = ?", [username]);
+
+    if(result?.length > 0) return result[0];
+
+    return ;
+}
+
+module.exports = { createTable, getBuyerByUsername }

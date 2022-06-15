@@ -2,15 +2,20 @@ const express = require("express");
 const router = express.Router();
 const { checkSchema, validationResult } = require("express-validator");
 const db = require("../services/db");
-const { BuyerValidationSchema } = require("../services/validationSchemas");
-const { hashEncrypt } = require("../utils/authUtils");
+const {
+  BuyerSignupValidationSchema,
+  BuyerSigninValidationSchema,
+} = require("../services/validationSchemas");
+const { hashEncrypt, createJWT } = require("../utils/authUtils");
+const { getBuyerByUsername } = require("../utils/dbUtils");
 const { RespondToValidationErrors } = require("../utils/utils");
+const bcrypt = require("bcrypt");
 
 router.get("/", (req, res) => res.send("You Have Reached Buyer Route."));
 
 router.post(
   "/signup",
-  checkSchema(BuyerValidationSchema()),
+  checkSchema(BuyerSignupValidationSchema()),
   RespondToValidationErrors,
   async (req, res) => {
     try {
@@ -44,8 +49,33 @@ router.post(
   }
 );
 
-router.post('/signin', (req, res) => {
+router.post(
+  "/signin",
+  checkSchema(BuyerSigninValidationSchema()),
+  RespondToValidationErrors,
+  async (req, res) => {
+    try {
+      const { username, password } = req.body;
+      
+      const userData = await getBuyerByUsername(username);
+      if (!userData) {
+        res.status(404).json({ error: "Username is not registered !" });
+        return;
+      }
 
-});
+      if (!(await bcrypt.compare(password, userData.password))) {
+        res.status(400).json({ error: "Incorrect Password !" });
+        return;
+      }
+
+      const token = await createJWT({ id: username });
+      res.json({ message: "Buyer Signedin Successfully !", token });
+      return;
+    } catch (err) {
+      console.log("Error@Signin: " + err.message);
+      res.status(500).json({error: "Error occurred at server"})
+    }
+  }
+);
 
 module.exports = router;

@@ -1,4 +1,4 @@
-const BuyerValidationSchema = () => {
+const BuyerSignupValidationSchema = () => {
   return {
     username: {
       in: ["body"],
@@ -8,21 +8,22 @@ const BuyerValidationSchema = () => {
       trim: true,
       isLength: {
         options: { min: 3, max: 30 },
-        errorMessage: "Username must be longer than 3 characters and smaller than 30 characters",
+        errorMessage:
+          "Username must be longer than 3 characters and smaller than 30 characters",
       },
     },
-    email : {
+    email: {
       in: ["body"],
       exists: {
         errorMessage: "Email is required !",
         bail: true,
-      }, 
+      },
       isEmail: {
         errorMessage: "Invalid Email Address !",
-        bail: true
+        bail: true,
       },
       toLowerCase: true,
-      trim: true
+      trim: true,
     },
     first_name: {
       in: ["body"],
@@ -32,7 +33,8 @@ const BuyerValidationSchema = () => {
       toLowerCase: true,
       isLength: {
         options: { min: 3, max: 30 },
-        errorMessage: "First name must be longer than 3 characters and smaller than 30 characters",
+        errorMessage:
+          "First name must be longer than 3 characters and smaller than 30 characters",
       },
     },
     last_name: {
@@ -43,7 +45,8 @@ const BuyerValidationSchema = () => {
       toLowerCase: true,
       isLength: {
         options: { min: 3, max: 30 },
-        errorMessage: "Last name must be longer than 3 characters and smaller than 30 characters",
+        errorMessage:
+          "Last name must be longer than 3 characters and smaller than 30 characters",
       },
     },
     password: {
@@ -52,13 +55,32 @@ const BuyerValidationSchema = () => {
       isString: true,
       trim: true,
       isLength: {
-        options: { min: 4, max: 16},
-        errorMessage: "Password must be longer than 3 characters and smaller than 30 characters",
-      }
+        options: { min: 4, max: 16 },
+        errorMessage:
+          "Password must be longer than 3 characters and smaller than 30 characters",
+      },
+    },
+  };
+};
+
+const BuyerSigninValidationSchema = () => {
+  return {
+    username: {
+      in: ["body"],
+      errorMessage: "Username is required !",
+      isString: true,
+      toLowerCase: true,
+      trim: true,
+    },
+    password: {
+      in: ["body"],
+      errorMessage: "Password is required !",
+      isString: true,
     }
   };
 };
 
 module.exports = {
-    BuyerValidationSchema
-}
+  BuyerSignupValidationSchema,
+  BuyerSigninValidationSchema,
+};
