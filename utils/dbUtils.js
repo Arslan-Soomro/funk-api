@@ -92,4 +92,11 @@ const deleteProd = async (product_id) =>
 
 }
 
-module.exports = { createTable, update, deleteProd}
+const findProd = async (product_id) =>{
+
+    const fetchQuery = `SELECT * FROM product WHERE product_id = ${product_id}`;
+    const queryResult = await db.execute(fetchQuery);
+    console.log(queryResult[0]); 
+}
+
+module.exports = { createTable, update, deleteProd, findProd}

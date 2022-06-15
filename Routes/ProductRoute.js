@@ -1,33 +1,23 @@
 const express = require('express');
 const db = require('../services/db');
-const {update, deleteProd} = require('../utils/dbUtils');
+const {update, deleteProd, findProd} = require('../utils/dbUtils');
 const router = express.Router();
 
-/*
-router.post('/example', async (req, res) =>{
-    try {
-        console.log(req.body);
-        if(req.body.price != undefined){
-        console.log("Total price is " + req.body.price );
-        //await db.execute("INSERT INTO PRODUCTS(name, price, quantity etc) VALUES(?, ?)", [req.body.name, req.body.price]);
-            res.json({
-                message : "Product Added Successfully"
-            });
-        }else {
-            console.log("Total Price Not Found");
-            res.json({
-                message: "Price Missing ! Could not add product"
-            })
-        }
+router.get('/:id', async (req, res) => {
+    try{
+        const data = await findProd(req.params.id);
+        res.json({
+            message: "Product."
+        });
     }
-    
-    catch(err) {
+
+    catch(err){
         console.log(err.message);
         res.json({
             message: "Error Occurred at server"
         })
     }
-});*/
+});
 
 router.post('/', async (req, res) => {
     try{
@@ -107,6 +97,8 @@ router.delete('/:id',async (req, res)=>{
         })
     }
 });
+
+
 
 
 
