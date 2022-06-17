@@ -7,7 +7,7 @@ app.use(express.json());
 app.use('/buyer', buyerRouter);
 app.use('/seller', sellerRoute);
 
-const port = 5000;
+const port = 3000;
 
 app.listen(port);
     
