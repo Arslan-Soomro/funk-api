@@ -1,1 +1,0 @@
-// Utility functions related with authorization or authentication should be defined in this file.

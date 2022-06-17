@@ -1,2 +1,7 @@
 node_modules
+<<<<<<< HEAD
+yarn-error.log
+yarn.lock
+=======
 package-lock.json
+>>>>>>> 2beb8338fd6c65f9c390bcb729a3ff11dba4ae20
